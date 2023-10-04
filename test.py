@@ -1,4 +1,5 @@
 import unittest
+import main
 
 '''
 class MyTestCase(unittest.TestCase):
@@ -6,15 +7,15 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, False)  # add assertion here
 '''
 
-class Test_Case_PulseAlarm(unittest.TestCase):
+class Unit_Tests_PulseAlarm(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)  # add assertion here
 
-class Test_Case_OxygenAlarm(unittest.TestCase):
+class Unit_Tests_OxygenAlarm(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)  # add assertion here
 
-class Test_Case_BloodPressureAlarm(unittest.TestCase):
+class Unit_Tests_BloodPressureAlarm(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)  # add assertion here
 
