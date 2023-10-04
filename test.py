@@ -6,6 +6,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, False)  # add assertion here
 
     # This is a test comment
+    # This is another test comment
 
 
 if __name__ == '__main__':
