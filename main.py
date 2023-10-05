@@ -5,6 +5,11 @@ from abc import ABC, abstractmethod
 
 
 class BaseAlarm(ABC):
+
+    def __init__(self):
+        self.alarm = "None"
+        self.message = "Everything normal"
+
     @abstractmethod
     def check(self, *args):
         pass
@@ -41,19 +46,53 @@ class OxygenAlarm(BaseAlarm):
 
 
 class BloodPressureAlarm(BaseAlarm):
+
+    tempAlarm = "None"
+    tempMessage = "Everything normal"
+
+    alarmPriority = {
+        "Highest": 4,
+        "Medium": 3,
+        "Low": 2,
+        "None": 1
+    }
+
+    def resetTemps(self):
+        self.tempAlarm = "None"
+        self.tempMessage = "Everything normal"
+
+    def verifyNewAlarm(self, new_alarm, new_message):
+        if self.alarmPriority.get(new_alarm) >= self.alarmPriority.get(self.tempAlarm):
+            self.tempAlarm = new_alarm
+            self.tempMessage = new_message
+
     def check(self, bp_s, bp_d):
         if bp_s is None or bp_d is None:
             return "None", "Everything normal"
-        if bp_s > 200 or bp_d > 120:
-            return "Medium", "Blood pressure dangerously high"
-        if bp_s > 150 or bp_d > 90:
-            return "Low", "Blood pressure elevated"
-        if bp_s < 70 or bp_d < 40:
-            return "Medium", "Blood pressure too low"
-        if bp_s < 50 or bp_d < 33:
-            return "Highest", "Blood pressure dangerously low"
-        return "None", "Everything normal"
 
+        if bp_s > 200:
+            self.verifyNewAlarm("Medium", "Blood pressure dangerously high")
+        if bp_s > 150:
+            self.verifyNewAlarm("Low", "Blood pressure elevated")
+        if bp_s < 70:
+            self.verifyNewAlarm("Medium", "Blood pressure too low")
+        if bp_s < 50:
+            self.verifyNewAlarm("Highest", "Blood pressure dangerously low")
+
+        if bp_d > 120:
+            self.verifyNewAlarm("Medium", "Blood pressure dangerously high")
+        if bp_d > 90:
+            self.verifyNewAlarm("Low", "Blood pressure elevated")
+        if bp_d < 40:
+            self.verifyNewAlarm("Medium", "Blood pressure too low")
+        if bp_d < 33:
+            self.verifyNewAlarm("Highest", "Blood pressure dangerously low")
+
+        self.alarm = self.tempAlarm
+        self.message = self.tempMessage
+        self.resetTemps()
+
+        return self.alarm, self.message
 
 class AlarmSystem:
     def __init__(self):
@@ -146,5 +185,12 @@ def main():
         data_source.close()
 
 
+def meh():
+    bp = BloodPressureAlarm()
+    print(bp.check(201, 31))
+    print(bp.check(49, 91))
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    meh()
