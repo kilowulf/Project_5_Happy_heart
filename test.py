@@ -76,9 +76,65 @@ class Unit_Tests_OxygenAlarm(unittest.TestCase):
         self.assertEqual(message, "Everything normal")
 
 class Unit_Tests_BloodPressureAlarm(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
 
+    bloodPressureAlarm = main.BloodPressureAlarm()
+
+    def test_both_none(self):
+        status, message = self.bloodPressureAlarm.check(None, None)
+        self.assertEqual("None", status)
+        self.assertEqual("Everything normal", message)
+
+    def test_bp_s_none(self):
+        status, message = self.bloodPressureAlarm.check(None, 50)
+        self.assertEqual("None", status)
+        self.assertEqual("Everything normal", message)
+
+    def test_bp_s_low(self):
+        status, message = self.bloodPressureAlarm.check(151, 50)
+        self.assertEqual("Low", status)
+        self.assertEqual("Blood pressure elevated", message)
+
+    def test_bp_s_medium_low(self):
+        status, message = self.bloodPressureAlarm.check(50, 50)
+        self.assertEqual("Medium", status)
+        self.assertEqual("Blood pressure too low", message)
+
+    def test_bp_s_medium_high(self):
+        status, message = self.bloodPressureAlarm.check(201, 50)
+        self.assertEqual("Medium", status)
+        self.assertEqual("Blood pressure dangerously high", message)
+
+    def test_bp_s_highest(self):
+        status, message = self.bloodPressureAlarm.check(49, 50)
+        self.assertEqual("Highest", status)
+        self.assertEqual("Blood pressure dangerously low", message)
+
+    def test_bp_d_none(self):
+        status, message = self.bloodPressureAlarm.check(100, None)
+        self.assertEqual("None", status)
+        self.assertEqual("Everything normal", message)
+
+    def test_bp_d_low(self):
+        status, message = self.bloodPressureAlarm.check(100, 91)
+        self.assertEqual("Low", status)
+        self.assertEqual("Blood pressure elevated", message)
+
+    def test_bp_d_medium_low(self):
+        status, message = self.bloodPressureAlarm.check(100, 39)
+        self.assertEqual("Medium", status)
+        self.assertEqual("Blood pressure too low", message)
+
+    def test_bp_d_medium_high(self):
+        status, message = self.bloodPressureAlarm.check(100, 121)
+        self.assertEqual("Medium", status)
+        self.assertEqual("Blood pressure dangerously high", message)
+
+    def test_bp_d_highest(self):
+        status, message = self.bloodPressureAlarm.check(100, 32)
+        self.assertEqual("Highest", status)
+        self.assertEqual("Blood pressure dangerously low", message)
+
+#     Add priority tests
 
 if __name__ == '__main__':
     unittest.main()
