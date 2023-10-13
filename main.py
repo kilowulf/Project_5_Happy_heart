@@ -146,6 +146,14 @@ def read_data_source(data_source):
 
 
 def main():
+    #Welcome statements
+    print("\n**WELCOME TO THE HAPPY HEART PROGRAM**")
+    print("\nPlease enter the file path of a .txt document containing health data,\nor enter it manually in the following format:")
+    print("\n'Pulse Reading' 'Oxygen Level' 'Blood Pressure'")
+    print("\nEach value is separated by a space. You can omit 'Oxygen Level' and 'Blood Pressure'.")
+    print("To exit, simply press Enter without entering any data.")
+    print()
+
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
         data_source = open(file_name, 'r')
@@ -192,5 +200,5 @@ def meh():
 
 
 if __name__ == "__main__":
-    # main()
-    meh()
+    main()
+    #meh()
