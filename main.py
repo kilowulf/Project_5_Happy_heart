@@ -192,13 +192,5 @@ def main():
     if data_source != sys.stdin:
         data_source.close()
 
-
-def meh():
-    bp = BloodPressureAlarm()
-    print(bp.check(201, 31))
-    print(bp.check(49, 91))
-
-
 if __name__ == "__main__":
     main()
-    #meh()
