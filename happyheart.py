@@ -11,19 +11,21 @@ class PulseMonitor:
         elif pulse < 20:
             return PulseAlarm("High", "Pulse rate dangerously low")
         elif pulse < 40:
-            return PulseAlarm("Med", "Pulse rate low")
-        elif pulse <= 130:
-            return PulseAlarm("Low", "Pulse rate slightly elevated")
-        elif pulse <= 170:
-            return PulseAlarm("Med", "Pulse rate high")
-        elif pulse <= 210:
+            return PulseAlarm("Medium", "Pulse rate low")
+        elif pulse >= 210:
             return PulseAlarm("High", "Pulse rate dangerously high")
+        elif pulse >= 170:
+            return PulseAlarm("Medium", "Pulse rate high")
+        elif pulse >= 130:
+            return PulseAlarm("Low", "Pulse rate slightly elevated")
+
+
 
 class OxygenMonitor:
     def __init__(self):
         self.oxygen_deque = deque(maxlen=6)
         self.missing_oxygen_count = 0
-    
+
     def check(self, oxygen):
         if oxygen is None:
             self.missing_oxygen_count += 1
@@ -66,7 +68,7 @@ class PressureMonitor:
             return PressureAlarm("Low", "Systolic blood pressure slighly elevated")
         elif bp_s <= 230:
             return PressureAlarm("Medium", "Systolic blood pressure high")
-        
+
     def check_diastolic(self, bp_d):
         if bp_d is None:
             return None
@@ -83,7 +85,7 @@ class PressureMonitor:
         elif bp_d <= 150:
             return PressureAlarm("Medium", "Diastolic blood pressure high")
 
-        
+
     def compare_alarms(self, systolic_alarm, diastolic_alarm):
         if systolic_alarm is None and diastolic_alarm is None:
             return None
