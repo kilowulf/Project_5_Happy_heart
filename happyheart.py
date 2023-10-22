@@ -2,7 +2,12 @@ from collections import deque
 import time
 import sys
 
+# Monitors the patient's pulse rate
 class PulseMonitor:
+
+    # check() method takes a reading (pulse as input and returns an alarm 
+    # if the reading is out of the normal range. If the reading is within
+    # the normal range, None is returned.
     def check(self, pulse):
         if 40 <= pulse <= 110:
             return None
@@ -20,12 +25,16 @@ class PulseMonitor:
             return PulseAlarm("Low", "Pulse rate slightly elevated")
 
 
-
+# Monitors patient blood oxygen level
 class OxygenMonitor:
     def __init__(self):
         self.oxygen_deque = deque(maxlen=6)
         self.missing_oxygen_count = 0
 
+    # check() method takes a reading (oxygen as input and returns an alarm 
+    # if the reading is out of the normal range. If the reading is within
+    # the normal range, None is returned. If the oxygen reading is None for
+    # 3 or more readings, a warning message will be displayed
     def check(self, oxygen):
         if oxygen is None:
             self.missing_oxygen_count += 1
@@ -47,12 +56,14 @@ class OxygenMonitor:
         else:
             return None
 
+# Monitors patient blood pressure 
 class PressureMonitor:
     def check(self, bp_s, bp_d):
         systolic = self.check_systolic(bp_s)
         diastolic = self.check_diastolic(bp_d)
         return(self.compare_alarms(systolic, diastolic))
 
+    #ensure that the systolic blood pressure readings are evaluated against defined ranges
     def check_systolic(self, bp_s):
         if bp_s is None:
             return None
@@ -69,7 +80,7 @@ class PressureMonitor:
         elif bp_s > 150:
             return PressureAlarm("Low", "Systolic blood pressure slightly elevated")
 
-
+    # ensures that diastolic blood pressure readings are evaluated against defined ranges
     def check_diastolic(self, bp_d):
         if bp_d is None:
             return None
@@ -86,7 +97,8 @@ class PressureMonitor:
         elif bp_d > 90:
             return PressureAlarm("Low", "Diastolic blood pressure slightly elevated")
 
-
+    #  ensures that if there are alarms for both systolic and diastolic
+    #  blood pressure readings, it returns the alarm with the higher severity,
     def compare_alarms(self, systolic_alarm, diastolic_alarm):
         if systolic_alarm is None and diastolic_alarm is None:
             return None
@@ -99,6 +111,9 @@ class PressureMonitor:
         else:
             return diastolic_alarm
 
+# ALARM CLASSES:
+# represent and report the severity and messages 
+# related to abnormal readings of the patient's vital signs.
 class PulseAlarm:
     def __init__(self, severity, message):
         self.severity = severity
@@ -126,6 +141,7 @@ class PressureAlarm:
     def get_level(self):
         return self.levels[self.severity]
 
+# Driver for Happy Heart Program.  
 class HeartMonitor:
     def __init__(self):
         self.pulse_monitor = PulseMonitor()
@@ -163,6 +179,10 @@ class HeartMonitor:
         else:
             return self.pressure_alarm
 
+
+# reads health data from a file (if provided as a command-line argument)
+#  or from the standard input. It expects data in the format: 
+# 'Pulse Reading' 'Oxygen Level' 'Blood Pressure'.
 def read_data_source(data_source):
     data_line = data_source.readline().strip()
     pulse, oxygen, bp_s, bp_d = None, None, None, None
@@ -201,6 +221,7 @@ def main():
     print("\nIf you have provided a valid data file in the command line,\nthe program will execute on its own.\nTo exit, simply press Enter without entering any data.")
     print()
 
+    # Checks command line for .txt file, if none given, prompts input
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
         data_source = open(file_name, 'r')
@@ -208,7 +229,6 @@ def main():
         data_source = sys.stdin
 
     heart_monitor = HeartMonitor()
-
     time_elapsed = 0
 
     while True:
