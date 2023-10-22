@@ -64,10 +64,11 @@ class PressureMonitor:
             return PressureAlarm("High", "Systolic Blood Pressure dangerously low")
         elif bp_s < 70:
             return PressureAlarm("Medium", "Systolic blood pressure low")
-        elif bp_s <= 200:
-            return PressureAlarm("Low", "Systolic blood pressure slighly elevated")
-        elif bp_s <= 230:
+        elif bp_s >= 200:
             return PressureAlarm("Medium", "Systolic blood pressure high")
+        elif bp_s > 150:
+            return PressureAlarm("Low", "Systolic blood pressure slightly elevated")
+
 
     def check_diastolic(self, bp_d):
         if bp_d is None:
@@ -80,10 +81,10 @@ class PressureMonitor:
             return PressureAlarm("High", "Diastolic Blood Pressure dangerously low")
         elif bp_d < 40:
             return PressureAlarm("Medium", "Diastolic blood pressure low")
-        elif bp_d <= 120:
-            return PressureAlarm("Low", "Diastolic blood pressure slighly elevated")
-        elif bp_d <= 150:
+        elif bp_d >= 120:
             return PressureAlarm("Medium", "Diastolic blood pressure high")
+        elif bp_d > 90:
+            return PressureAlarm("Low", "Diastolic blood pressure slightly elevated")
 
 
     def compare_alarms(self, systolic_alarm, diastolic_alarm):
