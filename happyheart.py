@@ -64,7 +64,7 @@ class PressureMonitor:
             return PressureAlarm("High", "Systolic Blood Pressure dangerously low")
         elif bp_s < 70:
             return PressureAlarm("Medium", "Systolic blood pressure low")
-        elif bp_s >= 200:
+        elif bp_s > 200:
             return PressureAlarm("Medium", "Systolic blood pressure high")
         elif bp_s > 150:
             return PressureAlarm("Low", "Systolic blood pressure slightly elevated")
@@ -81,7 +81,7 @@ class PressureMonitor:
             return PressureAlarm("High", "Diastolic Blood Pressure dangerously low")
         elif bp_d < 40:
             return PressureAlarm("Medium", "Diastolic blood pressure low")
-        elif bp_d >= 120:
+        elif bp_d > 120:
             return PressureAlarm("Medium", "Diastolic blood pressure high")
         elif bp_d > 90:
             return PressureAlarm("Low", "Diastolic blood pressure slightly elevated")

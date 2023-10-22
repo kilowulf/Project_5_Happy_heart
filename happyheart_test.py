@@ -375,11 +375,11 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Systolic blood pressure slightly elevated"
 
         # Test cases that should output the expected.
-        positviveTestPressures = [151, 199]
+        positviveTestPressures = [151, 200]
         self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [200]
+        negativeTestPressures = [201]
         self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
 
     def test_bp_systolic_high(self):
@@ -387,7 +387,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Systolic blood pressure high"
 
         # Test cases that should output the expected.
-        positviveTestPressures = [200, 230]
+        positviveTestPressures = [201, 230]
         self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
 
         # Test cases that should not output the expected.
@@ -450,11 +450,11 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Diastolic blood pressure slightly elevated"
 
         # Test cases that should output the expected.
-        positviveTestPressures = [91, 119]
+        positviveTestPressures = [91, 120]
         self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [120]
+        negativeTestPressures = [121]
         self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
 
     def test_bp_diastolic_high(self):
@@ -462,11 +462,11 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Diastolic blood pressure high"
 
         # Test cases that should output the expected.
-        positviveTestPressures = [120, 149]
+        positviveTestPressures = [121, 149]
         self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [119, 151]
+        negativeTestPressures = [120, 151]
         self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
 
     def test_bp_compare_alarms_both_none(self):
