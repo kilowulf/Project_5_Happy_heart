@@ -47,12 +47,13 @@ class OxygenMonitor:
         self.missing_oxygen_count = 0
         self.oxygen_deque.append(oxygen)
         oxygen_avg = sum(self.oxygen_deque) / len(self.oxygen_deque)
+        oxygen_avg = round(oxygen_avg, 1)
         if oxygen_avg < 50:
-            return OxygenAlarm("High", f"Blood Oxygen dangerously low ({round(oxygen_avg, 1)})")
+            return OxygenAlarm("High", "Blood Oxygen dangerously low ({:.1f})".format(oxygen_avg))
         elif oxygen_avg < 80:
-            return OxygenAlarm("Medium", f"Blood Oxygen low ({round(oxygen_avg, 1)})")
+            return OxygenAlarm("Medium", "Blood Oxygen low ({:.1f})".format(oxygen_avg))
         elif oxygen_avg < 85:
-            return OxygenAlarm("Low", f"Blood Oxygen slightly low ({round(oxygen_avg, 1)})")
+            return OxygenAlarm("Low", "Blood Oxygen slightly low ({:.1f})".format(oxygen_avg))
         else:
             return None
 
@@ -70,7 +71,7 @@ class PressureMonitor:
         if 70 <= bp_s <= 150:
             return None
         elif bp_s < 0 or bp_s > 230:
-            return PressureAlarm("Low", f"Blood pressure equipment malfunction ({bp_s}/{bp_d})")
+            return PressureAlarm("Low", f"Blood Pressure equipment malfunction ({bp_s}/{bp_d})")
         elif bp_s < 50:
             return PressureAlarm("High", f"Systolic Blood Pressure dangerously low  ({bp_s}/{bp_d})")
         elif bp_s < 70:
