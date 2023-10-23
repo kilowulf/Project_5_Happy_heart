@@ -22,7 +22,7 @@ class PulseMonitor:
         elif pulse > 130:
             return PulseAlarm("Medium", f"Pulse rate high ({pulse})")
         elif pulse > 110:
-            return PulseAlarm("Low", f"Pulse rate slightly elevated")
+            return PulseAlarm("Low", f"Pulse rate slightly elevated ({pulse})")
 
 
 # Monitors patient blood oxygen level
