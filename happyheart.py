@@ -218,6 +218,8 @@ def main():
     print("\n**WELCOME TO THE HAPPY HEART PROGRAM**")
     print("\nIf you have not provided a .txt document\ncontaining health data in the command line,\nenter health data manually in the following format:")
     print("\n'Pulse Reading' 'Oxygen Level' 'Blood Pressure'")
+    print("\n'Pulse Reading' accepts an integer value, 'Oxygen Level' accepts an int or float (rounds to 1 decimal digit), ")
+    print("'Blood Pressure' accepts two ints, separated by a /")
     print("\nEach value is separated by a space. You can omit\n'Oxygen Level' and 'Blood Pressure' but not 'Pulse Reading'.")
     print("\nIf you have provided a valid data file in the command line,\nthe program will execute on its own.\nTo exit, simply press Enter without entering any data.")
     print()
