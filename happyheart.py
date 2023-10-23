@@ -12,17 +12,17 @@ class PulseMonitor:
         if 40 <= pulse <= 110:
             return None
         elif pulse < 0 or pulse > 210:
-            return PulseAlarm("Low", f"Pulse equipment malfunction ({pulse})")
+            return PulseAlarm("Low", f"Pulse equipment malfunction\n Invalid Pulse: {pulse}")
         elif pulse < 20:
-            return PulseAlarm("High", f"Pulse rate dangerously low ({pulse})")
+            return PulseAlarm("High", f"Pulse rate dangerously low\n Pulse: {pulse}")
         elif pulse < 40:
-            return PulseAlarm("Medium", f"Pulse rate low ({pulse})")
+            return PulseAlarm("Medium", f"Pulse rate low\n Pulse: {pulse}")
         elif pulse > 170:
-            return PulseAlarm("High", f"Pulse rate dangerously high ({pulse})")
+            return PulseAlarm("High", f"Pulse rate dangerously high\n Pulse: {pulse}")
         elif pulse > 130:
-            return PulseAlarm("Medium", f"Pulse rate high ({pulse})")
+            return PulseAlarm("Medium", f"Pulse rate high\n Pulse: {pulse}")
         elif pulse > 110:
-            return PulseAlarm("Low", f"Pulse rate slightly elevated ({pulse})")
+            return PulseAlarm("Low", f"Pulse rate slightly elevated\n Pulse: {pulse}")
 
 
 # Monitors patient blood oxygen level
@@ -43,17 +43,17 @@ class OxygenMonitor:
             return None
         if oxygen <= 0 or oxygen >= 100:
             self.missing_oxygen_count += 1
-            return OxygenAlarm("Low", f"Oxygen equipment malfunction ({round(oxygen, 1)})")
+            return OxygenAlarm("Low", f"Oxygen equipment malfunction\n Invalid Oxygen Reading: {round(oxygen, 1)}")
         self.missing_oxygen_count = 0
         self.oxygen_deque.append(oxygen)
         oxygen_avg = sum(self.oxygen_deque) / len(self.oxygen_deque)
         oxygen_avg = round(oxygen_avg, 1)
         if oxygen_avg < 50:
-            return OxygenAlarm("High", "Blood Oxygen dangerously low ({:.1f})".format(oxygen_avg))
+            return OxygenAlarm("High", "Blood Oxygen dangerously low\n Oxygen Percentage: {:.1f}".format(oxygen_avg))
         elif oxygen_avg < 80:
-            return OxygenAlarm("Medium", "Blood Oxygen low ({:.1f})".format(oxygen_avg))
+            return OxygenAlarm("Medium", "Blood Oxygen low\n Oxygen Percentage: {:.1f}".format(oxygen_avg))
         elif oxygen_avg < 85:
-            return OxygenAlarm("Low", "Blood Oxygen slightly low ({:.1f})".format(oxygen_avg))
+            return OxygenAlarm("Low", "Blood Oxygen slightly low\n Oxygen Percentage: {:.1f}".format(oxygen_avg))
         else:
             return None
 
@@ -71,15 +71,15 @@ class PressureMonitor:
         if 70 <= bp_s <= 150:
             return None
         elif bp_s < 0 or bp_s > 230:
-            return PressureAlarm("Low", f"Blood Pressure equipment malfunction ({bp_s}/{bp_d})")
+            return PressureAlarm("Low", f"Blood Pressure equipment malfunction\n Invalid Systolic: {bp_s}")
         elif bp_s < 50:
-            return PressureAlarm("High", f"Systolic Blood Pressure dangerously low  ({bp_s}/{bp_d})")
+            return PressureAlarm("High", f"Systolic Blood Pressure dangerously low\n Systolic: {bp_s}")
         elif bp_s < 70:
-            return PressureAlarm("Medium", f"Systolic Blood Pressure low ({bp_s}/{bp_d})")
+            return PressureAlarm("Medium", f"Systolic Blood Pressure low\n Systolic: {bp_s}")
         elif bp_s > 200:
-            return PressureAlarm("Medium", f"Systolic Blood Pressure high ({bp_s}/{bp_d})")
+            return PressureAlarm("Medium", f"Systolic Blood Pressure high\n Systolic: {bp_s}")
         elif bp_s > 150:
-            return PressureAlarm("Low", f"Systolic Blood Pressure slightly elevated ({bp_s}/{bp_d})")
+            return PressureAlarm("Low", f"Systolic Blood Pressure slightly elevated\n Systolic: {bp_s}")
 
     # ensures that diastolic blood pressure readings are evaluated against defined ranges
     def check_diastolic(self, bp_s, bp_d):
@@ -88,15 +88,15 @@ class PressureMonitor:
         if 40 <= bp_d <= 90:
             return None
         elif bp_d < 0 or bp_d > 150:
-            return PressureAlarm("Low", f"Blood Pressure equipment malfunction ({bp_s}/{bp_d})")
+            return PressureAlarm("Low", f"Blood Pressure equipment malfunction\n Diastolic: {bp_d}")
         elif bp_d < 33:
-            return PressureAlarm("High", f"Diastolic Blood Pressure dangerously low ({bp_s}/{bp_d})")
+            return PressureAlarm("High", f"Diastolic Blood Pressure dangerously low\n Diastolic: {bp_d}")
         elif bp_d < 40:
-            return PressureAlarm("Medium", f"Diastolic Blood Pressure low ({bp_s}/{bp_d})")
+            return PressureAlarm("Medium", f"Diastolic Blood Pressure low\n Diastolic: {bp_d}")
         elif bp_d > 120:
-            return PressureAlarm("Medium", f"Diastolic Blood Pressure high ({bp_s}/{bp_d})")
+            return PressureAlarm("Medium", f"Diastolic Blood Pressure high\n Diastolic: {bp_d}")
         elif bp_d > 90:
-            return PressureAlarm("Low", f"Diastolic Blood Pressure slightly elevated ({bp_s}/{bp_d})")
+            return PressureAlarm("Low", f"Diastolic Blood Pressure slightly elevated\n Diastolic: {bp_d}")
 
     #  ensures that if there are alarms for both systolic and diastolic
     #  blood pressure readings, it returns the alarm with the higher severity,
