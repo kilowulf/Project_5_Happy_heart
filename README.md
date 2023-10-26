@@ -29,7 +29,11 @@ The Happy Heart project raises alarms at three different levels, depending on th
 
 To run the Happy Heart program, you can provide a data file as a command-line argument or enter data manually through the keyboard. Here are some basic usage instructions:
 
+### Operating System:
+Our executable is built to run on Windows. The executable will not run on MacOs or Linux.
+
 ### Command Line:
+Navigate to the directory holding the executable.
 - Input with keyboard
 ```
 happyheart.exe
