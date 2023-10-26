@@ -15,8 +15,7 @@ The Happy Heart project provides the following key features:
 - Detection of the following vital signs:
     1. **Pulse Rate**: An integer value ranging from 0 to 260.
     2. **Blood Oxygen Level**: A percentage with one decimal place of precision, ranging from 0 to 99.9.
-    3. **Blood Pressure**: Consisting of systolic (high number) and diastolic (low number) readings, as integers (i.e 120/80).
-  Valid range for systolic is 0 - 230, for diastolic 0 - 150
+    3. **Blood Pressure**: Consisting of systolic (high number) and diastolic (low number) readings, as integers (i.e 120/80). Valid range for systolic is 0 - 230, for diastolic 0 - 150
 
 ## Alarm Levels
 
@@ -38,8 +37,9 @@ happyheart.exe
 
 - Input with .txt file
 ```
-happyheart.exe <input>.txt
+happyheart.exe <filename>.txt
 ```
+(Important Note: The .txt file must be in the same directory as the .exe file for the command to work.)
 
 ### Data File Format
 
