@@ -24,21 +24,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 
     def test_pulse_equipment_malfunction(self):
         expectedSeverity = "Low"
-        expectedMessage = "Pulse equipment malfunction"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [260, -1]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = [211, -1]
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse equipment malfunction\n Invalid Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity,errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [259, 0]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [0,210]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity,errorMessage)
@@ -47,21 +47,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 
     def test_pulse_dangerously_low(self):
         expectedSeverity = "High"
-        expectedMessage = "Pulse rate dangerously low"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [0, 19]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = list(range(0, 20))
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse rate dangerously low\n Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [-1, 20]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [-1, 20]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
@@ -70,21 +70,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 
     def test_pulse_low(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Pulse rate low"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [20, 39]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = list(range(20, 40))
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse rate low\n Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [19, 41]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [19, 41]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             if testCase is not None:
                 errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -94,21 +94,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
     
     def test_pulse_slightly_elevated(self):
         expectedSeverity = "Low"
-        expectedMessage = "Pulse rate slightly elevated"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [130, 169]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = list(range(111, 131))
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse rate slightly elevated\n Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [129, 170]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [110, 131]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             if testCase is not None:
                 errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -118,21 +118,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 
     def test_pulse_high(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Pulse rate high"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [170, 209]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = list(range(131, 171))
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse rate high\n Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [169, 210]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [1, 171]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             if testCase is not None:
                 errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -142,21 +142,21 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 
     def test_pulse_dangerously_high(self):
         expectedSeverity = "High"
-        expectedMessage = "Pulse rate dangerously high"
 
-        # Test cases that should output the expected.
-        positiveTestPulses = [210, 259]
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        validInputs = list(range(171, 210))
 
-        for pulse in positiveTestPulses:
+        for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
+            expectedMessage = f"Pulse rate dangerously high\n Pulse: {pulse}"
             errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
-        negativeTestPulses = [209, 260]
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [170, 211]
 
-        for pulse in negativeTestPulses:
+        for pulse in invalidInputs:
             testCase = self.pulseMonitor.check(pulse)
             if testCase is not None:
                 errorMessage = f"Pulse: {pulse}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -182,30 +182,30 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
 
     def test_oxygen_malfunction(self):
         expectedSeverity = "Low"
-        expectedMessage = "Oxygen equipment malfunction"
 
-    # Test cases that should output the expected.
+    # Test cases that should output the expectedSeverity and expectedMessage.
         positiveTestOxygen = [0, 100]
         for oxygen in positiveTestOxygen:
             self.oxygenMonitor.oxygen_deque.clear()
             testCase = self.oxygenMonitor.check(oxygen)
+            expectedMessage = f"Oxygen equipment malfunction\n Invalid Oxygen Reading: {round(oxygen, 1)}"
             errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-    # Test case that should not output the expected.
-        negativeTestOxygen = [1]
+    # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        negativeTestOxygen = list(range(1,80))
         for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
             errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
-    # Test case that should have same severity but not messages
-        negativeTestOxygen = [84]
+    # Test case that should have same expectedSeverity but not expectedMessage
+        negativeTestOxygen = list(range(81,85))
         for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
             errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
@@ -216,74 +216,75 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "Low"
         expectedMessage = "Blood Oxygen slightly low"
 
-        #Test cases that should output the expected.
-        positiveTestOxygen = [80, 84]
-        for oxygen in positiveTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        positiveTestOxygen = list(range(80, 85))
+        for oxygen_avg in positiveTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            expectedMessage = "Blood Oxygen slightly low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test case that should not output the expected.
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
         negativeTestOxygen = [79]
-        for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        for oxygen_avg in negativeTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
         # Test case that should output None.
         negativeTestOxygen = [85]
-        for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
+        for oxygen_avg in negativeTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
             self.assertIsNone(self.assertIsNone(testCase, "Expected result is None when Greater than 84"))
 
 
     def test_low_average_oxygen(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Blood Oxygen low"
 
-        #Test cases that should output the expected.
-        positiveTestOxygen = [50, 79]
-        for oxygen in positiveTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        positiveTestOxygen = list(range(55, 80))
+        for oxygen_avg in positiveTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            expectedMessage = "Blood Oxygen low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
         negativeTestOxygen = [49, 80]
-        for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        for oxygen_avg in negativeTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
 
     def test_dangerously_low_average_oxygen(self):
         expectedSeverity = "High"
-        expectedMessage = "Blood Oxygen dangerously low"
 
-        #Test cases that should output the expected.
-        positiveTestOxygen = [1, 49]
-        for oxygen in positiveTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        # Test cases that should output the expectedSeverity and expectedMessage.
+        positiveTestOxygen = list(range(1, 50))
+        for oxygen_avg in positiveTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            expectedMessage = "Blood Oxygen dangerously low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
-        # Test cases that should not output the expected.
+        # Test cases that should NOT output the expectedSeverity and expectedMessage.
         negativeTestOxygen = [0, 50]
-        for oxygen in negativeTestOxygen:
-            self.oxygenMonitor.oxygen_deque.clear()
-            testCase = self.oxygenMonitor.check(oxygen)
-            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+        for oxygen_avg in negativeTestOxygen:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen_avg)
+            errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
