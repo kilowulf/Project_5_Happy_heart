@@ -184,8 +184,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "Low"
 
     # Test cases that should output the expectedSeverity and expectedMessage.
-        positiveTestOxygen = [0, 100]
-        for oxygen in positiveTestOxygen:
+        validInputs = [0, 100]
+        for oxygen in validInputs:
             self.oxygenMonitor.oxygen_deque.clear()
             testCase = self.oxygenMonitor.check(oxygen)
             expectedMessage = f"Oxygen equipment malfunction\n Invalid Oxygen Reading: {round(oxygen, 1)}"
@@ -194,17 +194,17 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
     # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        negativeTestOxygen = list(range(1,80))
-        for oxygen in negativeTestOxygen:
+        invalidInputs = list(range(1,80))
+        for oxygen in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
             errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
             self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
-    # Test case that should have same expectedSeverity but not expectedMessage
-        negativeTestOxygen = list(range(81,85))
-        for oxygen in negativeTestOxygen:
+    # Test cases that should have same expectedSeverity but not expectedMessage
+        invalidInputs = list(range(81,85))
+        for oxygen in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
             errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -214,11 +214,10 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
 
     def test_slightly_low_average_oxygen(self):
         expectedSeverity = "Low"
-        expectedMessage = "Blood Oxygen slightly low"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        positiveTestOxygen = list(range(80, 85))
-        for oxygen_avg in positiveTestOxygen:
+        validInputs = list(range(80, 85))
+        for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             expectedMessage = "Blood Oxygen slightly low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
@@ -227,8 +226,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
         # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        negativeTestOxygen = [79]
-        for oxygen_avg in negativeTestOxygen:
+        invalidInputs = [79]
+        for oxygen_avg in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -236,8 +235,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
         # Test case that should output None.
-        negativeTestOxygen = [85]
-        for oxygen_avg in negativeTestOxygen:
+        invalidInput = [85]
+        for oxygen_avg in invalidInput:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             self.assertIsNone(self.assertIsNone(testCase, "Expected result is None when Greater than 84"))
@@ -247,8 +246,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "Medium"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        positiveTestOxygen = list(range(55, 80))
-        for oxygen_avg in positiveTestOxygen:
+        validInputs = list(range(55, 80))
+        for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             expectedMessage = "Blood Oxygen low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
@@ -257,8 +256,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
         # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        negativeTestOxygen = [49, 80]
-        for oxygen_avg in negativeTestOxygen:
+        invalidInputs = [49, 80]
+        for oxygen_avg in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
@@ -270,8 +269,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "High"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        positiveTestOxygen = list(range(1, 50))
-        for oxygen_avg in positiveTestOxygen:
+        validInputs = list(range(1, 50))
+        for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             expectedMessage = "Blood Oxygen dangerously low\n Oxygen Percentage: {:.1f}".format(oxygen_avg)
@@ -280,8 +279,8 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
         # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        negativeTestOxygen = [0, 50]
-        for oxygen_avg in negativeTestOxygen:
+        invalidInputs = [0, 50]
+        for oxygen_avg in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
             errorMessage = f"Oxygen: {oxygen_avg}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
