@@ -293,31 +293,35 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def automate_bp_systolic_positive_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
+            expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_systolic(testCase)
             errorMessage = f"Sytstolic Pressure: {testCase}\nSeverity: {result.severity}\nMessage: {result.message}\n"
             self.assertEqual(expectedSeverity, result.severity, errorMessage)
-            self.assertEqual(expectedMessage, result.message, errorMessage)
+            self.assertEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
     def automate_bp_systolic_negative_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
+            expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_systolic(testCase)
             errorMessage = f"Sytstolic Pressure: {testCase}\nSeverity: {result.severity}\nMessage: {result.message}\n"
             self.assertNotEqual(expectedSeverity, result.severity, errorMessage)
-            self.assertNotEqual(expectedMessage, result.message, errorMessage)
+            self.assertNotEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
     def automate_bp_diastolic_positive_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
+            expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_diastolic(testCase)
             errorMessage = f"Diastolic Pressure: {testCase}\nSeverity: {result.severity}\nMessage: {result.message}\n"
             self.assertEqual(expectedSeverity, result.severity, errorMessage)
-            self.assertEqual(expectedMessage, result.message, errorMessage)
+            self.assertEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
     def automate_bp_diastolic_negative_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
+            expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_diastolic(testCase)
             errorMessage = f"Diastolic Pressure: {testCase}\nSeverity: {result.severity}\nMessage: {result.message}\n"
             self.assertNotEqual(expectedSeverity, result.severity, errorMessage)
-            self.assertNotEqual(expectedMessage, result.message, errorMessage)
+            self.assertNotEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
     def test_bp_systolic_is_none(self):
         expected = None
@@ -336,7 +340,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_systolic_equipment_malfunction(self):
         expectedSeverity = "Low"
-        expectedMessage = "Blood pressure equipment malfunction"
+        expectedMessage = "Blood Pressure equipment malfunction\n Invalid Systolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [-1, 231]
@@ -348,7 +352,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_systolic_dangerously_low(self):
         expectedSeverity = "High"
-        expectedMessage = "Systolic Blood Pressure dangerously low"
+        expectedMessage = "Systolic Blood Pressure dangerously low\n Systolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [49]
@@ -360,7 +364,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_systolic_low(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Systolic blood pressure low"
+        expectedMessage = "Systolic Blood Pressure low\n Systolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [50, 69]
@@ -372,7 +376,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_systolic_slightly_elevated(self):
         expectedSeverity = "Low"
-        expectedMessage = "Systolic blood pressure slightly elevated"
+        expectedMessage = "Systolic Blood Pressure slightly elevated\n Systolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [151, 200]
@@ -384,7 +388,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_systolic_high(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Systolic blood pressure high"
+        expectedMessage = "Systolic Blood Pressure high\n Systolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [201, 230]
@@ -411,7 +415,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_diastolic_equipment_malfunction(self):
         expectedSeverity = "Low"
-        expectedMessage = "Blood pressure equipment malfunction"
+        expectedMessage = "Blood Pressure equipment malfunction\n Diastolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [-1, 151]
@@ -423,7 +427,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_diastolic_dangerously_low(self):
         expectedSeverity = "High"
-        expectedMessage = "Diastolic Blood Pressure dangerously low"
+        expectedMessage = "Diastolic Blood Pressure dangerously low\n Diastolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [0, 32]
@@ -435,7 +439,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_diastolic_low(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Diastolic blood pressure low"
+        expectedMessage = "Diastolic Blood Pressure low\n Diastolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [33, 39]
@@ -447,7 +451,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_diastolic_slightly_elevated(self):
         expectedSeverity = "Low"
-        expectedMessage = "Diastolic blood pressure slightly elevated"
+        expectedMessage = "Diastolic Blood Pressure slightly elevated\n Diastolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [91, 120]
@@ -459,7 +463,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_diastolic_high(self):
         expectedSeverity = "Medium"
-        expectedMessage = "Diastolic blood pressure high"
+        expectedMessage = "Diastolic Blood Pressure high\n Diastolic: "
 
         # Test cases that should output the expected.
         positviveTestPressures = [121, 149]
@@ -476,7 +480,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_compare_alarms_systolic_none(self):
         expectedSeverity = "High"
-        expectedMessage = "Diastolic Blood Pressure dangerously low"
+        expectedMessage = "Diastolic Blood Pressure dangerously low\n Diastolic: 32"
         diastolicAlarm = self.bloodPressureMonitor.check_diastolic(32)
         result = self.bloodPressureMonitor.compare_alarms(None, diastolicAlarm)
         self.assertEqual(result.severity, expectedSeverity)
@@ -484,7 +488,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_compare_alarms_diastolic_none(self):
         expectedSeverity = "High"
-        expectedMessage = "Systolic Blood Pressure dangerously low"
+        expectedMessage = "Systolic Blood Pressure dangerously low\n Systolic: 40"
         systolicAlarm = self.bloodPressureMonitor.check_systolic(40)
         result = self.bloodPressureMonitor.compare_alarms(systolicAlarm, None)
         self.assertEqual(result.severity, expectedSeverity)
@@ -492,7 +496,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_compare_alarms_systolic_high(self):
         expectedSeverity = "High"
-        expectedMessage = "Systolic Blood Pressure dangerously low"
+        expectedMessage = "Systolic Blood Pressure dangerously low\n Systolic: 40"
 
         systolicAlarm = self.bloodPressureMonitor.check_systolic(40)
 
@@ -519,7 +523,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
 
     def test_bp_compare_alarms_diastolic_high(self):
         expectedSeverity = "High"
-        expectedMessage = "Diastolic Blood Pressure dangerously low"
+        expectedMessage = "Diastolic Blood Pressure dangerously low\n Diastolic: 32"
 
         diastolicAlarm = self.bloodPressureMonitor.check_diastolic(32)
 
@@ -563,7 +567,7 @@ class Unit_Tests_HeartMonitor(unittest.TestCase):
 
     def test_heart_monitor_pulse_first_priority(self):
         expectedSeverity = "High"
-        expectedMessage = "Pulse rate dangerously high"
+        expectedMessage = "Pulse rate dangerously high\n Pulse: 210"
 
         # Reset the oxygen deque for a fresh test
         self.hm.oxygen_monitor.oxygen_deque = deque(maxlen=6)
@@ -580,7 +584,7 @@ class Unit_Tests_HeartMonitor(unittest.TestCase):
 
     def test_heart_monitor_oxygen_second_priority(self):
         expectedSeverity = "High"
-        expectedMessage = "Blood Oxygen dangerously low"
+        expectedMessage = "Blood Oxygen dangerously low\n Oxygen Percentage: 10.0"
 
         # Reset the oxygen deque for a fresh test
         self.hm.oxygen_monitor.oxygen_deque = deque(maxlen=6)
@@ -597,7 +601,7 @@ class Unit_Tests_HeartMonitor(unittest.TestCase):
 
     def test_heart_monitor_bp_s_third_priority(self):
         expectedSeverity = "High"
-        expectedMessage = "Systolic Blood Pressure dangerously low"
+        expectedMessage = "Systolic Blood Pressure dangerously low\n Systolic: 25"
 
         # Reset the oxygen deque for a fresh test
         self.hm.oxygen_monitor.oxygen_deque = deque(maxlen=6)

@@ -60,12 +60,12 @@ class OxygenMonitor:
 # Monitors patient blood pressure 
 class PressureMonitor:
     def check(self, bp_s, bp_d):
-        systolic = self.check_systolic(bp_s, bp_d)
-        diastolic = self.check_diastolic(bp_s, bp_d)
+        systolic = self.check_systolic(bp_s)
+        diastolic = self.check_diastolic(bp_d)
         return(self.compare_alarms(systolic, diastolic))
 
     #ensure that the systolic blood pressure readings are evaluated against defined ranges
-    def check_systolic(self, bp_s, bp_d):
+    def check_systolic(self, bp_s):
         if bp_s is None:
             return None
         if 70 <= bp_s <= 150:
@@ -82,7 +82,7 @@ class PressureMonitor:
             return PressureAlarm("Low", f"Systolic Blood Pressure slightly elevated\n Systolic: {bp_s}")
 
     # ensures that diastolic blood pressure readings are evaluated against defined ranges
-    def check_diastolic(self, bp_s, bp_d):
+    def check_diastolic(self, bp_d):
         if bp_d is None:
             return None
         if 40 <= bp_d <= 90:
