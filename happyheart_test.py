@@ -166,7 +166,15 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
 class Unit_Tests_OxygenMonitor(unittest.TestCase):
     oxygenMonitor = happyheart.OxygenMonitor()
     
-    
+    def test_missing_reading(self):
+        expectedSeverity = "Low"
+        expectedMessage = "Missing 3 consecutive Blood Oxygen readings"
+
+        # Test case
+        self.oxygenMonitor.missing_oxygen_count = 0 #Clear missing_oxygen_count
+        testCase = self.oxygenMonitor.check(None)
+        self.assertIsNone(testCase, f"Oxygen should return None if None is given {testCase}")
+
     def test_missing_consecutive_readings(self):
         expectedSeverity = "Low"
         expectedMessage = "Missing 3 consecutive Blood Oxygen readings"
@@ -180,12 +188,12 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         self.assertEqual(expectedSeverity, testCase.severity, expectedMessage)
 
 
-    def test_oxygen_malfunction(self):
+    def test_oxygen_malfunction_too_low(self):
         expectedSeverity = "Low"
 
     # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = [0, 100]
-        for oxygen in validInputs:
+        validInput = [0]
+        for oxygen in validInput:
             self.oxygenMonitor.oxygen_deque.clear()
             testCase = self.oxygenMonitor.check(oxygen)
             expectedMessage = f"Oxygen equipment malfunction\n Invalid Oxygen Reading: {round(oxygen, 1)}"
@@ -194,7 +202,29 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
     # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        invalidInputs = [1,79]
+        invalidInputs = [1]
+        for oxygen in invalidInputs:
+            self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
+            testCase = self.oxygenMonitor.check(oxygen)
+            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+            self.assertNotEqual(expectedSeverity, testCase.severity, errorMessage)
+            self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
+
+    def test_oxygen_malfunction_too_high(self):
+        expectedSeverity = "Low"
+
+    # Test cases that should output the expectedSeverity and expectedMessage.
+        validInput = [100]
+        for oxygen in validInput:
+            self.oxygenMonitor.oxygen_deque.clear()
+            testCase = self.oxygenMonitor.check(oxygen)
+            expectedMessage = f"Oxygen equipment malfunction\n Invalid Oxygen Reading: {round(oxygen, 1)}"
+            errorMessage = f"Oxygen: {oxygen}\nSeverity: {testCase.severity}\nMessage: {testCase.message}\n"
+            self.assertEqual(expectedSeverity, testCase.severity, errorMessage)
+            self.assertEqual(expectedMessage, testCase.message, errorMessage)
+
+    # Test cases that should NOT output the expectedSeverity and expectedMessage.
+        invalidInputs = [79]
         for oxygen in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
