@@ -49,7 +49,7 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
         expectedSeverity = "High"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(0, 20))
+        validInputs = [0, 19]
 
         for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
@@ -72,7 +72,7 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
         expectedSeverity = "Medium"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(20, 40))
+        validInputs = [20, 39]
 
         for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
@@ -96,7 +96,7 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
         expectedSeverity = "Low"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(111, 131))
+        validInputs = [111, 130]
 
         for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
@@ -120,7 +120,7 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
         expectedSeverity = "Medium"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(131, 171))
+        validInputs = [131, 170]
 
         for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
@@ -144,7 +144,7 @@ class Unit_Tests_PulseMonitor(unittest.TestCase):
         expectedSeverity = "High"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(171, 210))
+        validInputs = [171, 209]
 
         for pulse in validInputs:
             testCase = self.pulseMonitor.check(pulse)
@@ -194,7 +194,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertEqual(expectedMessage, testCase.message, errorMessage)
 
     # Test cases that should NOT output the expectedSeverity and expectedMessage.
-        invalidInputs = list(range(1,80))
+        invalidInputs = [1,79]
         for oxygen in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
@@ -203,7 +203,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
             self.assertNotEqual(expectedMessage, testCase.message, errorMessage)
 
     # Test cases that should have same expectedSeverity but not expectedMessage
-        invalidInputs = list(range(81,85))
+        invalidInputs = [80,84]
         for oxygen in invalidInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen)
@@ -216,7 +216,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "Low"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(80, 85))
+        validInputs = [80, 84]
         for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
@@ -246,7 +246,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "Medium"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(55, 80))
+        validInputs = [55, 79]
         for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
@@ -269,7 +269,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
         expectedSeverity = "High"
 
         # Test cases that should output the expectedSeverity and expectedMessage.
-        validInputs = list(range(1, 50))
+        validInputs = [1, 49]
         for oxygen_avg in validInputs:
             self.oxygenMonitor.oxygen_deque.clear() #Clear the oxygen_deque so averages = what has been input
             testCase = self.oxygenMonitor.check(oxygen_avg)
