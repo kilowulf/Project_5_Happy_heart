@@ -291,7 +291,7 @@ class Unit_Tests_OxygenMonitor(unittest.TestCase):
 class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
     bloodPressureMonitor = happyheart.PressureMonitor()
 
-    def automate_bp_systolic_positive_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
+    def automate_bp_systolic_valid_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
             expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_systolic(testCase)
@@ -299,7 +299,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
             self.assertEqual(expectedSeverity, result.severity, errorMessage)
             self.assertEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
-    def automate_bp_systolic_negative_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
+    def automate_bp_systolic_invalid_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
             expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_systolic(testCase)
@@ -307,7 +307,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
             self.assertNotEqual(expectedSeverity, result.severity, errorMessage)
             self.assertNotEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
-    def automate_bp_diastolic_positive_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
+    def automate_bp_diastolic_valid_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
             expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_diastolic(testCase)
@@ -315,7 +315,7 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
             self.assertEqual(expectedSeverity, result.severity, errorMessage)
             self.assertEqual(expectedMessageWithTestCase, result.message, errorMessage)
 
-    def automate_bp_diastolic_negative_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
+    def automate_bp_diastolic_invalid_test_cases(self, expectedSeverity, expectedMessage, testCaseList):
         for testCase in testCaseList:
             expectedMessageWithTestCase = expectedMessage + f"{testCase}"
             result = self.bloodPressureMonitor.check_diastolic(testCase)
@@ -343,60 +343,60 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Blood Pressure equipment malfunction\n Invalid Systolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [-1, 231]
-        self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [-1, 231]
+        self.automate_bp_systolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [0, 230]
-        self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [0, 230]
+        self.automate_bp_systolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_systolic_dangerously_low(self):
         expectedSeverity = "High"
         expectedMessage = "Systolic Blood Pressure dangerously low\n Systolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [49]
-        self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [49]
+        self.automate_bp_systolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [50]
-        self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [50]
+        self.automate_bp_systolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_systolic_low(self):
         expectedSeverity = "Medium"
         expectedMessage = "Systolic Blood Pressure low\n Systolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [50, 69]
-        self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [50, 69]
+        self.automate_bp_systolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [49]
-        self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [49]
+        self.automate_bp_systolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_systolic_slightly_elevated(self):
         expectedSeverity = "Low"
         expectedMessage = "Systolic Blood Pressure slightly elevated\n Systolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [151, 200]
-        self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [151, 200]
+        self.automate_bp_systolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [201]
-        self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [201]
+        self.automate_bp_systolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_systolic_high(self):
         expectedSeverity = "Medium"
         expectedMessage = "Systolic Blood Pressure high\n Systolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [201, 230]
-        self.automate_bp_systolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [201, 230]
+        self.automate_bp_systolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [231]
-        self.automate_bp_systolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [231]
+        self.automate_bp_systolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_diastolic_is_none(self):
         expected = None
@@ -418,60 +418,60 @@ class Unit_Tests_BloodPressureMonitor(unittest.TestCase):
         expectedMessage = "Blood Pressure equipment malfunction\n Diastolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [-1, 151]
-        self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [-1, 151]
+        self.automate_bp_diastolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [0, 150]
-        self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [0, 150]
+        self.automate_bp_diastolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_diastolic_dangerously_low(self):
         expectedSeverity = "High"
         expectedMessage = "Diastolic Blood Pressure dangerously low\n Diastolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [0, 32]
-        self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [0, 32]
+        self.automate_bp_diastolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [33]
-        self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [33]
+        self.automate_bp_diastolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_diastolic_low(self):
         expectedSeverity = "Medium"
         expectedMessage = "Diastolic Blood Pressure low\n Diastolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [33, 39]
-        self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [33, 39]
+        self.automate_bp_diastolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [32]
-        self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [32]
+        self.automate_bp_diastolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_diastolic_slightly_elevated(self):
         expectedSeverity = "Low"
         expectedMessage = "Diastolic Blood Pressure slightly elevated\n Diastolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [91, 120]
-        self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [91, 120]
+        self.automate_bp_diastolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [121]
-        self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [121]
+        self.automate_bp_diastolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_diastolic_high(self):
         expectedSeverity = "Medium"
         expectedMessage = "Diastolic Blood Pressure high\n Diastolic: "
 
         # Test cases that should output the expected.
-        positviveTestPressures = [121, 149]
-        self.automate_bp_diastolic_positive_test_cases(expectedSeverity, expectedMessage, positviveTestPressures)
+        validInputs = [121, 149]
+        self.automate_bp_diastolic_valid_test_cases(expectedSeverity, expectedMessage, validInputs)
 
         # Test cases that should not output the expected.
-        negativeTestPressures = [120, 151]
-        self.automate_bp_diastolic_negative_test_cases(expectedSeverity, expectedMessage, negativeTestPressures)
+        invalidInputs = [120, 151]
+        self.automate_bp_diastolic_invalid_test_cases(expectedSeverity, expectedMessage, invalidInputs)
 
     def test_bp_compare_alarms_both_none(self):
         expected = None
